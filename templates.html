@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EpicQuiz Templates</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00ff99, #ff66cc);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .template-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .template-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .template-card h2 {
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+
+    .template-card p {
+      font-size: 0.95em;
+      margin-bottom: 15px;
+    }
+
+    .template-card a {
+      display: inline-block;
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .template-card a:hover {
+      background: #555;
+    }
+
+    .back-link {
+      margin-top: 50px;
+    }
+
+    .back-link a {
+      color: #fff;
+      text-decoration: underline;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Browse Quiz Templates</h1>
+
+  <div class="template-grid">
+    <div class="template-card">
+      <h2>Maths QuickFire</h2>
+      <p>Rapid-fire arithmetic and logic questions.</p>
+      <a href="templates/maths-quickfire.txt" download>Download</a>
+    </div>
+
+    <div class="template-card">
+      <h2>WW2</h2>
+      <p>Key events, dates, and figures from World War II.</p>
+      <a href="templates/ww2.txt" download>Download</a>
+    </div>
+
+    <div class="template-card">
+      <h2>Grammar</h2>
+      <p>English grammar challenges and sentence structure drills.</p>
+      <a href="templates/grammar.txt" download>Download</a>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="dashboard.html">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

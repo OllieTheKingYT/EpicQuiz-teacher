@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EpicQuiz Teacher Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00ff99, #ff66cc);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .button-group {
+      margin-bottom: 40px;
+    }
+
+    button {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    .achievement {
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+
+    .cookie-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      z-index: 999;
+      max-width: 400px;
+    }
+
+    .cookie-banner h3 {
+      margin-top: 0;
+      font-size: 1.4em;
+    }
+
+    .cookie-banner button {
+      margin-top: 10px;
+      background: #00ff99;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to EpicQuiz Teacher</h1>
+
+  <div class="button-group">
+    <button onclick="goToTemplates()">Browse Quiz Templates</button>
+    <button onclick="goToBuilder()">Open Quiz Builder</button>
+  </div>
+
+  <div class="achievement" id="achievementStatus">
+    Achievement: <strong>Quiz Maker</strong> — <span id="quizMakerStatus">Locked</span>
+  </div>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <h3>But first, cookies 🍪</h3>
+    <p>We use cookies to track your quiz-building achievements. Is that okay?</p>
+    <button onclick="acceptCookies()">Accept Cookies</button>
+  </div>
+
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function setCookie(name, value, days = 365) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    }
+
+    function goToBuilder() {
+      window.location.href = "quiz-builder.html";
+    }
+
+    function goToTemplates() {
+      window.location.href = "templates.html";
+    }
+
+    function acceptCookies() {
+      setCookie("cookiesAccepted", "true");
+      document.getElementById("cookieBanner").style.display = "none";
+      checkAchievement();
+    }
+
+    function checkAchievement() {
+      const exports = parseInt(getCookie("quizExports") || "0");
+      if (exports >= 3) {
+        document.getElementById("quizMakerStatus").textContent = "Unlocked 🎉";
+      }
+    }
+
+    // Show cookie banner if not accepted
+    if (getCookie("cookiesAccepted") === "true") {
+      document.getElementById("cookieBanner").style.display = "none";
+      checkAchievement();
+    }
+  </script>
+</body>
+</html>

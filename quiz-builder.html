@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EpicQuiz Builder</title>
+  <link rel="stylesheet" href="builder.css">
+</head>
+<body>
+  <h1>EpicQuiz Builder</h1>
+
+  <div class="editor">
+    <input type="text" id="quizTitle" placeholder="Quiz Title">
+    <textarea id="quizContent" placeholder="Type your questions and answers here..."></textarea>
+    <button onclick="exportQuiz()">Export Quiz</button>
+  </div>
+
+  <div class="achievement" id="achievementStatus">
+    Achievement: <strong>Quiz Maker</strong> — <span id="quizMakerStatus">Locked</span>
+  </div>
+
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function setCookie(name, value, days = 365) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    }
+
+    function exportQuiz() {
+      const title = document.getElementById('quizTitle').value.trim();
+      const content = document.getElementById('quizContent').value.trim();
+
+      if (!title || !content) {
+        alert("Please fill in both the title and content.");
+        return;
+      }
+
+      const blob = new Blob([title + "\n" + content], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${title.replace(/\s+/g, '_')}.txt`;
+      link.click();
+
+      let exports = parseInt(getCookie("quizExports") || "0");
+      exports++;
+      setCookie("quizExports", exports);
+
+      if (exports >= 3) {
+        document.getElementById("quizMakerStatus").textContent = "Unlocked 🎉";
+      }
+    }
+
+    // Initial achievement check
+    const exports = parseInt(getCookie("quizExports") || "0");
+    if (exports >= 3) {
+      document.getElementById("quizMakerStatus").textContent = "Unlocked 🎉";
+    }
+  </script>
+</body>
+</html>

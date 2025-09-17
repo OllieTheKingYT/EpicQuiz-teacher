@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EpicQuiz Teacher Sign Up</title>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00ff99, #ff66cc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    input {
+      width: 280px;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    button {
+      width: 300px;
+      padding: 12px;
+      margin: 10px 0;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #555;
+    }
+    .link {
+      color: #fff;
+      text-decoration: underline;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    .error {
+      color: #ffdddd;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Create Your EpicQuiz Teacher Account</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <input type="password" id="confirm" placeholder="Confirm Password">
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="googleLogin()">Continue with Google</button>
+  <a href="/index.html" class="link">Back to Login</a>
+  <div class="error" id="errorMsg"></div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBemNrGCg7ga-J5HhZviI2UyNKD4s7kLhs",
+      authDomain: "epicquiz-teacher.firebaseapp.com",
+      projectId: "epicquiz-teacher",
+      storageBucket: "epicquiz-teacher.firebasestorage.app",
+      messagingSenderId: "499665120049",
+      appId: "1:499665120049:web:47870500df900fbeb25e10"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function signup() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirm = document.getElementById('confirm').value.trim();
+
+      if (!email || !password || !confirm) {
+        return showError("Please fill in all fields.");
+      }
+      if (password !== confirm) {
+        return showError("Passwords do not match.");
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => window.location.href = "/dashboard.html")
+        .catch(err => showError(err.message));
+    }
+
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => window.location.href = "/dashboard.html")
+        .catch(err => showError(err.message));
+    }
+
+    function showError(msg) {
+      document.getElementById('errorMsg').textContent = msg;
+    }
+  </script>
+</body>
+</html>
